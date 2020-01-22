@@ -275,6 +275,7 @@
 
     ._accordion_body p {
         margin: 10px 0;
+        line-height: 1.4;
     }
 
     ._accordion_body li p {
@@ -340,7 +341,7 @@
         document.getElementById('cookie_dialog').style.display = 'table';
     }
 
-    var _settings = document.getElementsByTagName('html')[0].getAttribute('lang');
+    var _settings = document.getElementsByTagName('html')[0].getAttribute('lang').split('-')[0];
     if (_settings == null || _cookie_dialog_data.settings[_settings] == null) {
         _settings = 'en';
     }
