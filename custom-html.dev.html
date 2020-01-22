@@ -1,0 +1,474 @@
+<script>
+    var _cookie_dialog_data = {
+        "save_and_hide": true,
+        "settings": {
+            "en": {
+                "headline": "Cookies settings",
+                "button_save": "Save settings",
+                "button_accept": "Save and accept all",
+                "info_link": "https://en.wikipedia.org/wiki/HTTP_cookie",
+                "info_text": "About HTTP Cookies",
+                "privacy_link": "https://example.com/privacy-policy/",
+                "privacy_text": "Privacy Policy",
+                "option_groups": [{
+                    "headline": "Essential",
+                    "options": [{
+                        "id": "server-log-files-cookie",
+                        "name": "Server-Log-Files",
+                        "disabled": "disabled",
+                        "checked": "checked",
+                        "description": "The provider of the website automatically collects and stores information in so-called server log files, which your browser automatically transmits to us. These are: Browser type and version, Operating system used, Referrer URL, Host name of the accessing computer, Time of the server request, IP address, This data is not merged with other data sources. This data is recorded on the basis of Art. 6 Para. 1 lit. f DSGVO. The website operator has a legitimate interest in the technically error-free presentation and optimization of his website - the server log files must be recorded for this.",
+                        "cookies": {
+                            "title": "These include the following cookies: ",
+                            "names": "server-log-files-cookie"
+                        }
+                    }]
+                }, {
+                    "headline": "Marketing",
+                    "options": [{
+                        "id": "google-analytics-cookie",
+                        "name": "Google Analytics",
+                        "disabled": "",
+                        "checked": "",
+                        "description": "We use anonymized data from Google Analytics to improve our online presence up. These include e.g. the number of page views, the bounce rate and the duration of the visit to the website.",
+                        "cookies": {
+                            "title": "These include the following cookies: ",
+                            "names": "google-analytics-cookie, _ga, _gid, _gali, IDE, DSID, _dc_gtm_UA-...-."
+                        }
+                    }]
+                }]
+            }
+        }
+    }
+</script>
+
+<div id="cookie_dialog" class="cookie-dialog">
+
+    <div class="cookie-dialog-outer">
+
+        <div class="cookie-dialog-inner">
+
+            <div class="cookie-dialog-form">
+
+                <div id="cookie_dialog_headline" class="cookie-dialog-headline"></div>
+
+                <div class="cookie-dialog-form-details">
+
+                    <div id="cookie_dialog_form_option_groups" class="_accordions"></div>
+
+                </div>
+
+                <div id="cookie_dialog_button_accept" class="cookie-dialog-button-save-green" onclick="_cookie_dialog_save(this, 'all')"></div>
+
+                <ul>
+                    <li><a id="cookie_dialog_info_link" href="#" target="_blank" rel="noopener noreferrer"><span id="cookie_dialog_info_text"></span></a></li>
+                    <li><span id="cookie_dialog_button_save" class="cookie-dialog-button-save" onclick="_cookie_dialog_save(this, 'selected')"></span></li>
+                    <li><a id="cookie_dialog_privacy_link" href="#" target="_blank" rel="noopener noreferrer"><span id="cookie_dialog_privacy_text"></span></a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .cookie-dialog {
+        display: none;
+    }
+
+    .cookie-dialog,
+    .cookie-dialog *,
+    .cookie-dialog *:before,
+    .cookie-dialog *:after {
+        box-sizing: border-box;
+    }
+
+    .cookie-dialog {
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-family: "Arial", "Helvetiva", sans-serif;
+    }
+
+    .cookie-dialog-outer {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .cookie-dialog-inner {
+        width: 500px;
+        height: 436px;
+        background: #fff;
+        margin: 0 auto;
+        position: relative;
+        padding: 20px;
+        font-size: 16px;
+        border-radius: 24px;
+        box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .cookie-dialog-button-save {
+        color: #666;
+    }
+
+    .cookie-dialog-button-save-green {
+        background-color: #008000;
+        color: #f1f1f1;
+        cursor: pointer;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 20px;
+        width: 70%;
+        margin-left: 15%;
+        margin-top: 20px;
+    }
+
+    @media(max-width: 768px) {
+        .cookie-dialog-button-save-green {
+            padding: 10px 0;
+            font-size: 16px;
+            width: 100%;
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    }
+
+    .cookie-dialog details>summary {
+        cursor: pointer;
+    }
+
+    .cookie-dialog details+details {
+        margin-top: 10px;
+    }
+
+    .cookie-dialog-form-details {
+        overflow-y: auto;
+        height: 236px;
+    }
+
+    @media(max-width: 768px) {
+        .cookie-dialog-form-details {
+            height: 140px;
+        }
+    }
+
+    .cookie-dialog-headline {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    @media(max-width: 768px) {
+        .cookie-dialog-headline {
+            font-size: 18px;
+            margin-bottom: 10px;
+            margin-top: 0;
+        }
+    }
+
+    .cookie-dialog-form label {
+        line-height: 30px;
+    }
+
+    .cookie-dialog-form label,
+    .cookie-dialog-form label input {
+        cursor: pointer;
+        height: 30px;
+        display: inline-block;
+        float: left;
+    }
+
+    .cookie-dialog-form label input {
+        zoom: 2;
+        height: 15px;
+        margin: 0;
+        margin-right: 5px;
+    }
+
+    .cookie-dialog-form>ul a {
+        color: #666;
+        text-decoration: underline;
+    }
+
+    .cookie-dialog-form>ul,
+    .cookie-dialog-form>ul>li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        float: left;
+        width: 100%;
+    }
+
+    .cookie-dialog-form>ul>li {
+        width: 33.333%;
+        text-align: center;
+        padding-top: 18px;
+        font-size: 12px;
+    }
+
+    @media(max-width: 768px) {
+        .cookie-dialog-form>ul>li {
+            padding-top: 10px;
+            hyphens: auto;
+        }
+    }
+
+    .cookie-dialog-form-details ul,
+    .cookie-dialog-form-details ul>li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .cookie-dialog-form-details ul {
+        margin: 20px 0;
+    }
+
+    .cookie-dialog-form-details ul,
+    .cookie-dialog-form-details ul>li {
+        float: left;
+        width: 100%;
+    }
+
+    ._accordion {
+        border-width: 1px 0 1px;
+        border-style: solid;
+        border-color: #888;
+        overflow: hidden;
+    }
+
+    ._accordion_head {
+        padding: 10px;
+        background: #888;
+        border-bottom: 1px solid #fff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    @media(max-width: 768px) {
+        ._accordion_head {
+            padding: 5px;
+        }
+    }
+
+    ._accordion_body {
+        height: 0;
+        padding: 0 20px;
+        border: 1px solid #888;
+        border-width: 0 1px;
+        overflow: hidden;
+    }
+
+    @media(max-width: 768px) {
+        ._accordion_body {
+            padding: 0 10px;
+        }
+    }
+
+    ._accordion_body p {
+        margin: 10px 0;
+    }
+
+    ._accordion_body li p {
+        width: 100%;
+        float: left;
+        margin: 0;
+    }
+
+    ._accordion_body li p+p {
+        margin-top: 10px;
+    }
+
+    ._accordions ._accordion:last-child ._accordion_head {
+        border: 0;
+    }
+
+    @media(max-width: 768px) {
+        .cookie-dialog-inner {
+            width: 300px;
+            height: 280px;
+            padding: 10px;
+        }
+    }
+
+    ._accordion_body li+li {
+        margin-top: 20px;
+        border-top: 1px solid #999;
+        padding-top: 20px;
+    }
+</style>
+
+<script>
+    function _set_cookie(cname, value) {
+        var now = new Date(),
+            time = now.getTime(),
+            expireTime = time + 86400000 * 365;
+        now.setTime(expireTime);
+        document.cookie = cname + '=' + value + ';Expires=' + now.toGMTString() + ';Path=/;';
+    }
+
+    function _get_cookie(cname) {
+        var name = cname + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
+    function _del_cookie(name) {
+        document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 GMT;Path=/;';
+    }
+</script>
+
+<script>
+    if (_get_cookie('cookie-dialog-cookie') !== 'true') {
+        document.getElementById('cookie_dialog').style.display = 'table';
+    }
+
+    var _settings = document.getElementsByTagName('html')[0].getAttribute('lang');
+    if (_settings == null || _cookie_dialog_data.settings[_settings] == null) {
+        _settings = 'en';
+    }
+
+    var _cookieDialogSettings = _cookie_dialog_data.settings[_settings],
+        _headline = document.getElementById('cookie_dialog_headline'),
+        _buttonSave = document.getElementById('cookie_dialog_button_save'),
+        _buttonAccept = document.getElementById('cookie_dialog_button_accept'),
+        _infoText = document.getElementById('cookie_dialog_info_text'),
+        _infoLink = document.getElementById('cookie_dialog_info_link'),
+        _privacyText = document.getElementById('cookie_dialog_privacy_text'),
+        _privacyLink = document.getElementById('cookie_dialog_privacy_link');
+
+    _headline.innerHTML = _cookieDialogSettings.headline;
+    _buttonSave.innerHTML = _cookieDialogSettings.button_save;
+    _buttonAccept.innerHTML = _cookieDialogSettings.button_accept;
+    _infoText.innerHTML = _cookieDialogSettings.info_text;
+    _infoLink.setAttribute('href', _cookieDialogSettings.info_link);
+    _privacyText.innerHTML = _cookieDialogSettings.privacy_text;
+    _privacyLink.setAttribute('href', _cookieDialogSettings.privacy_link);
+
+    var _option_groups = _cookie_dialog_data.settings[_settings].option_groups;
+
+    var _option_groups_html = '';
+    for (var i = 0; i < _option_groups.length; i++) {
+
+        var _option_groups_options_html = '';
+        for (var j = 0; j < _option_groups[i].options.length; j++) {
+
+            var _options = _option_groups[i].options[j],
+                _checked = '';
+
+            if (_options.disabled !== 'disabled') {
+                if (_get_cookie(_options.id) == 'true') {
+                    _checked = 'checked';
+                }
+            } else {
+                _checked = 'checked';
+            }
+
+            _option_groups_options_html += '<li>' +
+                '<p>' +
+                '<label for="' + _options.id + '" onclick="_cookie_toggle(this, \'' + _options.id + '\')">' +
+                '<input' +
+                ' id="' + _options.id + '"' +
+                ' type="checkbox"' +
+                ' ' + _options.disabled +
+                ' ' + _checked +
+                '>' +
+                _options.name +
+                '</label>' +
+                '</p>' +
+                '<p><small>' + _options.description + '</small></p>' +
+                '<p><small>' + _options.cookies.title + _options.cookies.names + '</small></p>' +
+                '</li>';
+        };
+
+        _option_groups_html += '<div class="_accordion">' +
+            '<div class="_accordion_head">► ' + _option_groups[i].headline + '</div>' +
+            '<div class="_accordion_body">' +
+            '<ul>' +
+            _option_groups_options_html +
+            '</ul>' +
+            '</div>' +
+            '</div>';
+
+    };
+
+    document.getElementById('cookie_dialog_form_option_groups').innerHTML = _option_groups_html;
+
+    (function() {
+        'use strict';
+
+        var _accordion;
+
+        _accordion = document.querySelectorAll('._accordion_head');
+
+        for (var i = 0; i < _accordion.length; i++) {
+            _accordion[i].addEventListener('click', function() {
+
+                var _accordionBody;
+
+                _accordionBody = this.nextElementSibling;
+                _accordionBody.style.transition = 'height 0.2s ease-out';
+
+                if (_accordionBody.style.height) {
+                    _accordionBody.style.height = null;
+                } else {
+                    _accordionBody.style.height = _accordionBody.scrollHeight + 'px';
+                }
+            });
+        }
+    }());
+
+    function _cookie_dialog_save(_this, select) {
+        _form = _this.closest('.cookie-dialog-form');
+        _input_length = _form.getElementsByTagName('input').length;
+
+        var checkboxes = document.querySelectorAll('input[type=checkbox]')
+        for (var i = 0, checkbox; checkbox = checkboxes[i++];) {
+            if (select == 'all') {
+                _set_cookie(checkbox.getAttribute('id'), 'true');
+                _set_cookie('cookie-dialog-cookie', 'true');
+            } else if (select == 'selected') {
+                if (_cookie_dialog_data.save_and_hide == true) {
+                    _set_cookie('cookie-dialog-cookie', 'true');
+                }
+                if (checkbox.checked) {
+                    _set_cookie(checkbox.getAttribute('id'), 'true');
+                }
+            }
+        }
+
+        document.getElementById('cookie_dialog').style.display = 'none';
+        location.reload();
+    }
+
+    function _cookie_dialog_open() {
+        _del_cookie('cookie-dialog-cookie');
+        document.getElementById('cookie_dialog').style.display = 'table';
+    }
+
+    function _cookie_toggle(_this, name) {
+        var _checkbox = _this.querySelector('input[type=checkbox]');
+
+        if (_checkbox.checked) {
+            _set_cookie(name);
+        } else {
+            _del_cookie(name);
+        }
+    }
+</script>
